@@ -127,7 +127,6 @@ Below are the results extracted from **EML Analyzer**:
 ### 4. Combined Effect
 - The combination of urgency, realistic branding, and deceptive links increases the likelihood that the recipient will **click without verifying the source**.
 - When cross-referenced with **header anomalies, failed SPF/DKIM/DMARC checks, and external IP injection**, these elements confirm the email is **malicious** and intended for phishing.
----
 
 ---
 
@@ -136,3 +135,7 @@ Below are the results extracted from **EML Analyzer**:
 - **Validate Domains and IPs:** Used tools like WHOIS, MXToolbox, and VirusTotal to check domain registration, IP ownership, and blacklist status.
 - **Understand Spoofing Techniques:** Identified visual and technical signs of spoofing, including display name tricks, lookalike domains, and injected emails.
 - **Detect Phishing Attempts:** Analyze email headers, body content, HTML formatting, URLs, and attachments to extract indicators of compromise (IOCs) and confirm malicious intent.
+
+---
+## Conclusion
+The email was a phishing attempt. It was injected from an external IP (137.184.34.4) not belonging to Bradesco, failed SPF/DKIM/DMARC authentication, and contained a suspicious URL (alphaMountain.ai) and urgent content designed to trick the user. Header analysis, IP/domain checks, and content review confirm it is malicious and demonstrates how SOC analysts can identify and extract IOCs to protect users.
