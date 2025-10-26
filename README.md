@@ -71,10 +71,6 @@ Any email claiming to be from a bank but originating from a DigitalOcean IP is h
    
    <img width="1292" height="108" alt="image" src="https://github.com/user-attachments/assets/c9077c29-31a6-4191-afaa-5f51011ef719" />
 
-## 🧾 Email Authentication Results (SPF, DKIM, DMARC)
-
-<img width="1259" height="112" alt="image" src="https://github.com/user-attachments/assets/9ef0ca47-2a11-4812-a9ab-fed1e149e878" />
-
 The email failed standard authentication checks, indicating spoofing or misconfiguration.  
 Below are the results extracted from **EML Analyzer**:
 
