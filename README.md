@@ -4,10 +4,15 @@
 
 
 ## Objective
-In this Lab, I analyzed a real phishing email sample using manual investigation techniques. I extracted and reviewed email headers, URLs, and attachments, validated the sender's identity and identified indicators of compromise (IOCs).
+In this Lab, I analyzed a real phishing email sample using manual investigation techniques. The analysis involved extracting and reviewing email headers, URLs, and attachments, validating the sender’s identity, and identifying Indicators of Compromise (IOCs) to determine if the email was malicious. 
+
+This project is a walkthrough of how I conducted the analysis, step by step — from initial inspection to confirmation of the phishing attempt.
+
+This challenge was part of the 3-Day Phishing Analysis Challenge hosted on [HaxCamp](https://haxcamp.com/challenges/3f91d013-c4f2-44fd-9578-ade28acf15fb), a hands-on cybersecurity learning platform.
+A copy of my Certificate of Completion is included in this repository.
 
 ## Lab Set Up
-- [Download Email Sample (.eml)](./samples/bradesco_phishing_sample.eml)
+- [Email Sample (.eml)](./samples/bradesco_phishing_sample.eml)
 - Tools Used:
   - [EML Analyzer](https://eml-analyzer.herokuapp.com/#/)
   - [MX Toolbox Email Header Analyzer](https://mxtoolbox.com/EmailHeaders.aspx)
@@ -29,17 +34,20 @@ The SOC team preserved the original .eml file and began a phishing analysis to v
 ---
 ## Investigation Steps & Findings
 
-1.**Analyzed the email (.eml)** using **EML Analyzer** to extract detailed header information.  
+1.**Header Analysis** 
+
+Used EML Analyzer to extract header data and confirm sender information.*
 
 <img width="1312" height="316" alt="image" src="https://github.com/user-attachments/assets/cd5a382e-7d54-4feb-b03f-a4d441a596c9" />
 
-*Confirmed the sender's email and domain*
 
-2. **Confirmed the sender’s IP address**
+2. **IP & Doman Investigation**
+
+Sender’s IP: 137.184.34.4
 
 <img width="2734" height="578" alt="image" src="https://github.com/user-attachments/assets/a6173cb1-7a6c-46da-ac75-557407bd7449" />
 
-3. **Checked the sender’s IP reputation** using **VirusTotal**
+**Checked IP reputation in VirusTotal**
 
 <img width="1417" height="514" alt="image" src="https://github.com/user-attachments/assets/d60554be-8cc4-450f-a87a-4f5fe4c35835" />
 
@@ -59,7 +67,7 @@ Any email claiming to be from a bank but originating from a DigitalOcean IP is h
 
 > ⚠️ These findings indicate that the IP used to send the email is potentially compromised or part of a malicious infrastructure, reinforcing the phishing nature of the email.
 
-5. **Validated email authentication results** (SPF, DKIM, DMARC) in **EML Analyzer**
+3. **Validated email authentication results** (SPF, DKIM, DMARC) in **EML Analyzer**
    
    <img width="1292" height="108" alt="image" src="https://github.com/user-attachments/assets/c9077c29-31a6-4191-afaa-5f51011ef719" />
 
@@ -80,7 +88,9 @@ Below are the results extracted from **EML Analyzer**:
 > ⚠️ **Conclusion:**  
 > The message did not pass any authentication checks (SPF, DKIM, DMARC). Combined with the suspicious sending IP and content, this strongly supports classification as a **spoofed phishing email**.
 
-6. **Inspected embedded URLs** from the email body using **VirusTotal** to detect potential redirects or phishing sites.
+4. **URL Analysis**
+
+Used VirusTotal to scan embedded URLs from the email body.
 
    <img width="1279" height="751" alt="image" src="https://github.com/user-attachments/assets/78e95820-198d-4399-9d77-8bc263c1998c" />
 ---
@@ -90,7 +100,7 @@ Below are the results extracted from **EML Analyzer**:
 
    > ⚠️ *Note:* Newly registered domains or recently created phishing URLs may not immediately appear as malicious in antivirus databases.  
 
-7. **Used MXToolbox Email Header Analyzer** to cross-verify authentication results and trace the email’s delivery path.  
+5. **Used MXToolbox Email Header Analyzer** to cross-verify authentication results and trace the email’s delivery path.  
 
 <img width="1405" height="696" alt="image" src="https://github.com/user-attachments/assets/afd220a2-69c7-4466-8bc9-a6ad27515b97" />
 
@@ -120,22 +130,22 @@ Below are the results extracted from **EML Analyzer**:
 - Attackers replicate corporate branding to **gain trust and reduce suspicion**.
 
 ### 3. Spoofing / Visual Deception
-- The sender address (`banco.bradesco@atendimento.com.br`) looks similar to the official bank domain but is **not legitimate**.
-- Hyperlinks in the HTML body may display familiar URLs (e.g., “Bradesco Livelo portal”) but **redirect to a malicious site** (`http://alphaMountain.ai/...`).
-- Base64 encoding in the HTML content is sometimes used to **hide malicious scripts or tracking pixels**.
+- Sender `@atendimento.com.br` resembles official domain. Embedded links masked true destination (`alphaMountain.ai/...`).
 
-### 4. Combined Effect
-- The combination of urgency, realistic branding, and deceptive links increases the likelihood that the recipient will **click without verifying the source**.
-- When cross-referenced with **header anomalies, failed SPF/DKIM/DMARC checks, and external IP injection**, these elements confirm the email is **malicious** and intended for phishing.
-
+### 4. Deception
+- Social engineering + visual trust cues = high click risk.
 ---
 
-## Summary
-- **Trace Email Origin:** Followed the delivery path of an email using headers, hop timelines, and IP analysis to determine its source.
-- **Validate Domains and IPs:** Used tools like WHOIS, MXToolbox, and VirusTotal to check domain registration, IP ownership, and blacklist status.
-- **Understand Spoofing Techniques:** Identified visual and technical signs of spoofing, including display name tricks, lookalike domains, and injected emails.
-- **Detect Phishing Attempts:** Analyze email headers, body content, HTML formatting, URLs, and attachments to extract indicators of compromise (IOCs) and confirm malicious intent.
+## Summary of Anlaysis
+✅ Traced Email Origin: Followed the delivery path of an email using headers, hop timelines, and IP analysis to determine its source.
+✅ Validated Domains and IPs: Used tools like WHOIS, MXToolbox, and VirusTotal to check domain registration, IP ownership, and blacklist status.
+✅ Verified failed SPF/DKIM/DMARC authentication
+✅ Identified socil engineering and spoofing indicators, including display name tricks, lookalike domains, and injected emails.
+✅ Classified as phishing
 
 ---
 ## Conclusion
-The email was a phishing attempt. It was injected from an external IP (137.184.34.4) not belonging to Bradesco, failed SPF/DKIM/DMARC authentication, and contained a suspicious URL (alphaMountain.ai) and urgent content designed to trick the user. Header analysis, IP/domain checks, and content review confirm it is malicious and demonstrates how SOC analysts can identify and extract IOCs to protect users.
+The investigation confirmed that the emailw as a phishing attempt. It originated form a `DigitalOcean IP (137.184.34.4)`, failed SPF/DKIM/DMARC, contained deceptive links (alphaMountain.ai), and used urgency and impersonation tactics to trick users.
+
+<img width="1448" height="1024" alt="image" src="https://github.com/user-attachments/assets/a866be60-ac70-426c-8a2f-a2a7d241d4f2" />
+
