@@ -53,7 +53,7 @@ Sender’s IP: 137.184.34.4
 
 *Only 1 out of 94 antivirus software flagged this as a malicious IP address. Further investigation would need to be performed*.
 
-I then used **https://whois.domaintools.com/** to see who the iP belonged to
+I then used [Whois lookup](https://whois.domaintools.com/) to see who the iP belonged to
 
 <img width="785" height="684" alt="image" src="https://github.com/user-attachments/assets/c5dea747-975a-4c5b-9709-ec68dc692ce9" />
 
